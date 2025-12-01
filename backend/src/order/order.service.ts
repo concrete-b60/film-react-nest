@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { OrderRepository } from '../repository/order.repository';
 import { OrderDTO, OrderResultDTO } from './dto/order.dto';
-
+import { randomUUID } from 'crypto';
 import { ApiListResponse } from '../film/dto/films.dto';
 
 @Injectable()
@@ -36,7 +36,7 @@ export class OrderService {
           ...ticket,
           day,
           time,
-          id: crypto.randomUUID(),
+          id: randomUUID(),
         });
       } catch (error) {
         throw new BadRequestException(error.message);
