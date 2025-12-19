@@ -27,7 +27,7 @@ import { RepositoryModule } from './repository/repository.module';
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       autoLoadEntities: true,
-      synchronize: false,
+      synchronize: true,
     }),
     RepositoryModule,
     FilmModule,
