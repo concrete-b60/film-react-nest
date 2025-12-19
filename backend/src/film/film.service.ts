@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { FilmRepository } from '../repository/film.repository';
+
 import { ApiListResponse, GetFilmDTO, sessionDto } from './dto/films.dto';
+import { TypeOrmFilmRepository } from '../repository/typeorm-film.repository';
 
 @Injectable()
 export class FilmService {
-  constructor(private readonly repo: FilmRepository) {}
+  constructor(private readonly repo: TypeOrmFilmRepository) {}
 
   async getAllFilms(): Promise<ApiListResponse<GetFilmDTO>> {
     const films = await this.repo.findAll();
@@ -12,10 +13,10 @@ export class FilmService {
   }
 
   async getFilmSchedule(id: string): Promise<ApiListResponse<sessionDto>> {
-    const film = await this.repo.findFilmSchedule(id);
+    const sessions = await this.repo.findFilmSchedule(id);
     return {
-      total: film.schedule.length,
-      items: film.schedule,
+      total: sessions.length,
+      items: sessions,
     };
   }
 }
