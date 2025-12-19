@@ -30,7 +30,7 @@ export class Schedule {
   @Column()
   taken: string;
 
-  @ManyToOne(() => Film, (film) => film.schedules)
+  @ManyToOne(() => Film, (film) => film.schedule)
   @JoinColumn({ name: 'filmId' })
   film: Film;
 }

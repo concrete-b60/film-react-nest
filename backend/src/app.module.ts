@@ -13,7 +13,7 @@ import { RepositoryModule } from './repository/repository.module';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      envFilePath: '.env',
+      envFilePath: ['.env', '.env.example'],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
@@ -21,13 +21,13 @@ import { RepositoryModule } from './repository/repository.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
+      host: process.env.DATABASE_HOST || '127.0.0.1',
+      port: parseInt(process.env.DATABASE_PORT || '5432'),
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false,
     }),
     RepositoryModule,
     FilmModule,
