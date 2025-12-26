@@ -1,12 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { OrderRepository } from '../repository/order.repository';
+
 import { OrderDTO, OrderResultDTO } from './dto/order.dto';
 import { randomUUID } from 'crypto';
 import { ApiListResponse } from '../film/dto/films.dto';
+import { TypeOrmOrderRepository } from '../repository/typeorm-order.repository';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly repo: OrderRepository) {}
+  constructor(private readonly repo: TypeOrmOrderRepository) {}
 
   async orderTickets(
     order: OrderDTO,

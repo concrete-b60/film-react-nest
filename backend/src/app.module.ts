@@ -3,24 +3,33 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { configProvider } from './app.config.provider';
-import { MongooseModule } from '@nestjs/mongoose';
 import { FilmModule } from './film/film.module';
 import { OrderModule } from './order/order .module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RepositoryModule } from './repository/repository.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      envFilePath: '.env',
+      envFilePath: ['.env', '.env.example'],
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/',
     }),
-    MongooseModule.forRoot(
-      process.env.DATABASE_URL || 'mongodb://127.0.0.1:27017/afisha',
-    ),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.DATABASE_HOST || '127.0.0.1',
+      port: parseInt(process.env.DATABASE_PORT || '5432'),
+      username: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      autoLoadEntities: true,
+      synchronize: false,
+    }),
+    RepositoryModule,
     FilmModule,
     OrderModule,
   ],
