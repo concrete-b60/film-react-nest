@@ -4,9 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 import { configProvider } from './app.config.provider';
 import { FilmModule } from './film/film.module';
-import { OrderModule } from './order/order .module';
+import { OrderModule } from './order/order.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RepositoryModule } from './repository/repository.module';
+import { loggerProvider } from './logger.provider';
 
 @Module({
   imports: [
@@ -34,6 +35,6 @@ import { RepositoryModule } from './repository/repository.module';
     OrderModule,
   ],
   controllers: [],
-  providers: [configProvider],
+  providers: [configProvider, loggerProvider],
 })
 export class AppModule {}
