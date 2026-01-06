@@ -1,6 +1,6 @@
 services:
   frontend:
-    image: ghcr.io/neropac/film-frontend-docker:latest
+    image: ghcr.io/metaksander/film-frontend-docker:latest
     build:
       context: frontend
       dockerfile: Dockerfile
@@ -15,7 +15,7 @@ services:
       - app-network
 
   backend:
-    image: ghcr.io/neropac/film-backend-docker:latest
+    image: ghcr.io/metaksander/film-backend-docker:latest
     build:
       context: backend
     env_file:
@@ -31,11 +31,13 @@ services:
       - app-network
 
   server:
+    image: ghcr.io/metaksander/film-nginx:latest
     build:
       context: nginx
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - 80:80
+      - 433:433
     depends_on:
       - frontend
       - backend
