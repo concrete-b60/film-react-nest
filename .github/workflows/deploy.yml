@@ -1,3 +1,7 @@
+on:
+  push:
+    branches: [ 'review-2' ]
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
