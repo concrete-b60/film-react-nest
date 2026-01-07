@@ -24,7 +24,7 @@ services:
       - ./backend/src:/app/src
       - public:/app/src/public
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - postgres
     networks:
