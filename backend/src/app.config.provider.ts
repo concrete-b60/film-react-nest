@@ -1,9 +1,6 @@
-import { ConfigModule } from '@nestjs/config';
-
 export const configProvider = {
-  imports: [ConfigModule.forRoot()],
   provide: 'CONFIG',
-  useValue: <AppConfig>{
+  useValue: <IAppConfig>{
     database: {
       driver: process.env.DATABASE_DRIVER || 'postgres',
       host: process.env.DATABASE_HOST,
@@ -12,18 +9,26 @@ export const configProvider = {
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
     },
+    logger: {
+      type: process.env.LOGGER_TYPE || 'json',
+    },
   },
 };
 
-export interface AppConfig {
-  database: AppConfigDatabase;
+export interface IAppConfig {
+  database: IAppConfigDatabase;
+  logger: IAppConfigLogger;
 }
 
-export interface AppConfigDatabase {
+export interface IAppConfigDatabase {
   driver: string;
   host: string;
   port: number;
   name: string;
   username: string;
   password: string;
+}
+
+export interface IAppConfigLogger {
+  type: 'json' | 'tskv';
 }
