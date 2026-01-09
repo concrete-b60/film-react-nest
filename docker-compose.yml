@@ -13,6 +13,7 @@ services:
       - frontend_dist:/app/dist
     networks:
       - app-network
+    restart: unless-stopped
 
   backend:
     image: ghcr.io/metaksander/film-backend-docker:latest
@@ -29,6 +30,7 @@ services:
       - postgres
     networks:
       - app-network
+    restart: on-failure
 
   nginx:
     image: ghcr.io/metaksander/film-nginx:latest
@@ -81,6 +83,7 @@ services:
       - postgres
     networks:
       - app-network
+    restart: unless-stopped
 
 volumes:
   frontend_dist:
