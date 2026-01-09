@@ -16,6 +16,6 @@ jobs:
           username: deploy
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            cd ~/film-react-nest
+            cd ~/dev/film-react-nest
             docker compose pull
             docker compose up -d
